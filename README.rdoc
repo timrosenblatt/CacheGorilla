@@ -6,7 +6,9 @@ http://www.animalpictures1.com/data/media/65/gorilla-7.jpg
 
 == DESCRIPTION:
 
-Let's say you've got a MongoDB server, being used as a key-value store for an app being served by three sticky-load-balanced web servers. Running an instance of memcached will speed up repeated reads. 
+Let's say you've got a MongoDB server, being used as a key-value store for an app being served by three sticky-load-balanced web servers. Running an instance of Memcached will speed up repeated reads. 
+
+CacheGorilla lets you have a cache for MongoDB stored in-memory, and if you're running a local copy of Memcache, you can sidestep network latency, giving you an extra ms or two.
 
 === tl;dr
 
