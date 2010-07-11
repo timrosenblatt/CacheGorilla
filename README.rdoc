@@ -1,6 +1,6 @@
 = CacheGorilla
 
-<img src="http://www.animalpictures1.com/data/media/65/gorilla-7.jpg" />
+http://www.animalpictures1.com/data/media/65/gorilla-7.jpg
 
 * http://github.com/timrosenblatt/CacheGorilla
 
