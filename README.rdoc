@@ -16,11 +16,14 @@ This speeds up MongoDB by using antimatter and solar rays.
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+  include CacheGorilla
+  
+  @cg = CacheGorilla.new
+  @cg["key"] = "value"
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* You need either the `memcached` or `memcache-client` gem, and the `mongo` gem
 
 == INSTALL:
 

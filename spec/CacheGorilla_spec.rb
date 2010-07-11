@@ -86,4 +86,17 @@ describe "CacheGorilla" do
     @cg.memcache_get("key").should == "value"
   end
   
+  it "caches" do
+    @cg["key"] = "value"
+    @cg.mongo_set("key", "not the value")
+    
+    @cg["key"].should == "value"
+  end
+  
+  it "can bypass memcache" do
+    @cg.store("key", "value", :bypass_memcache => true)
+    
+    @cg.memcache_get("key").should be_nil
+    @cg["key"].should == "value"
+  end
 end
