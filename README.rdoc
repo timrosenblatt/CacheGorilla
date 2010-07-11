@@ -4,7 +4,11 @@
 
 == DESCRIPTION:
 
-Let's say you've got a MongoDB server, as the data store for an app being served by three sticky-load-balanced web servers. Running an instance of memcached will speed up repeated reads. This is a library for doing exactly that -- speeding up reads from a MongoDB database.
+Let's say you've got a MongoDB server, being used as a key-value store for an app being served by three sticky-load-balanced web servers. Running an instance of memcached will speed up repeated reads. 
+
+=== tl;dr
+
+This speeds up MongoDB by using antimatter and solar rays.
 
 == FEATURES/PROBLEMS:
 
