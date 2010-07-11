@@ -99,4 +99,30 @@ describe "CacheGorilla" do
     @cg.memcache_get("key").should be_nil
     @cg["key"].should == "value"
   end
+  
+  it "expires memcache before mongo" do
+    @cg = CacheGorilla.new(:db => "cache_gorilla_test", :memcache_default_expire => 2)
+    @cg["key"] = "value"
+    sleep(5)
+    @cg.memcache_get("key").should be_nil
+    @cg["key"].should == "value"
+  end
+  
+  it "expires memcache before mongo when filling the cache during a miss" do
+    @cg = CacheGorilla.new(:db => "cache_gorilla_test", :memcache_default_expire => 2)
+    @cg["key"] = "value"
+    sleep(5)
+    @cg.memcache_get("key").should be_nil
+    @cg["key"].should == "value"
+    sleep(5)
+    @cg.memcache_get("key").should be_nil
+    @cg["key"].should == "value"
+  end
+  
+  it "respects overridden memcache expiration times" do
+    @cg = CacheGorilla.new(:db => "cache_gorilla_test", :memcache_default_expire => 2)
+    @cg.store("key", "value", :expires_in => 100)
+    sleep(5)
+    @cg.memcache_get("key").should == "value"
+  end
 end

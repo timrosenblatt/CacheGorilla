@@ -1,8 +1,8 @@
 = CacheGorilla
 
-http://www.animalpictures1.com/data/media/65/gorilla-7.jpg
-
 * http://github.com/timrosenblatt/CacheGorilla
+
+http://www.animalpictures1.com/data/media/65/gorilla-7.jpg
 
 == DESCRIPTION:
 
@@ -11,10 +11,6 @@ Let's say you've got a MongoDB server, being used as a key-value store for an ap
 === tl;dr
 
 This speeds up MongoDB by using antimatter and solar rays.
-
-== FEATURES/PROBLEMS:
-
-* FIX (list of features or problems)
 
 == SYNOPSIS:
 

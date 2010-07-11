@@ -2,7 +2,7 @@ $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
 module CacheGorilla
-  VERSION = '0.0.1'
+  VERSION = '0.0.2'
   
   begin
     require "memcached"
@@ -35,10 +35,13 @@ module CacheGorilla
         :port => ENV['MONGO_RUBY_DRIVER_PORT'] || 27017,
         :db => 'cache',
         :collection => 'cache',
-        :server => 'localhost'
+        :server => 'localhost',
+        :mongo_pool_size => 5,
+        :mongo_timeout => 5,
+        :memcache_default_expire => nil
       }.update(options)
 
-      @mongo_connection = Mongo::Connection.new(@options[:host], @options[:port], :pool_size => 5, :timeout => 5)
+      @mongo_connection = Mongo::Connection.new(@options[:host], @options[:port], :pool_size => @options[:mongo_pool_size], :timeout => @options[:mongo_timeout])
       @mongo_collection = @mongo_connection.db(@options[:db]).collection(@options[:collection])
       
       @memcache = MemCache.new(options[:server], @options)
@@ -58,7 +61,7 @@ module CacheGorilla
         res = nil if res && res['expires'] && Time.now > res['expires']
         
         if res
-          args = [res['_id'], res['data'], res['expires']].compact
+          args = [res['_id'], res['data'], @options[:memcache_default_expire] || res['expires']].compact
           @memcache.set(*args)
         end
         
@@ -85,7 +88,7 @@ module CacheGorilla
       @mongo_collection.update({ '_id' => key }, { '_id' => key, 'data' => value, 'expires' => exp }, { :upsert => true }) # upsert is the best technical term ever.
       
       unless options.has_key?(:bypass_memcache)
-        args = [key, value, options[:expires_in]].compact
+        args = [key, value, options[:expires_in] || @options[:memcache_default_expire]].compact
         @memcache.set(*args)
       end
       
